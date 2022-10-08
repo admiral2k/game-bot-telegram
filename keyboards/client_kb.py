@@ -13,3 +13,5 @@ start_game = InlineKeyboardButton("START 🎮", callback_data="game_button_start
 game_menu.row(show_about, show_records_table).row(go_back, start_game)
 
 back_or_play_kb = InlineKeyboardMarkup(row_width=2).row(go_back, start_game)
+
+end_game_kb = InlineKeyboardMarkup().add(go_back)
