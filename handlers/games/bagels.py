@@ -40,7 +40,7 @@ async def show_leaderboard(callback: types.CallbackQuery):
 
 
 async def start_game(callback: types.CallbackQuery, state: FSMContext):
-
+    pass
 
 def registrate_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(show_info, lambda callback: callback.data == "game_button_about",
