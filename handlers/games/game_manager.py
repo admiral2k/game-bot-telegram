@@ -6,7 +6,8 @@ from handlers.games import bagels
 async def show_menu(game_name: str, callback: types.CallbackQuery):
     if game_name == "bagels":
         await FSM.bagels_game_menu.set()
-        await bagels.show_menu()
+        short_description = bagels.short_description
+        await callback.message.edit_text(short_description, reply_markup=game_menu, parse_mode="MarkDownV2")
 
 
 

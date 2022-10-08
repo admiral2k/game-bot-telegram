@@ -1,18 +1,26 @@
+from aiogram.dispatcher import FSMContext
+
 from bot_config import bot, FSM
 from aiogram import types, Dispatcher
 from keyboards.client_kb import games_list
 from handlers.games import game_manager
 
 
-async def send_start_message(message: types.Message):
+async def send_start_message(message: types.Message, state: FSMContext):
     await FSM.main_menu.set()
-    await message.delete()
-    await message.answer("*Hey*\! 😀\nI am a game bot\!\nTo see available games, please, use */games* command \:\)\n"
+    msg_id = await message.answer("*Hey*\! 😀\nI am a game bot\!\nTo see available games, please, use */games* command \:\)\n"
                          "Created by @admiral2k", parse_mode="MarkDownV2")
+    async with state.proxy() as data:
+        data["message"] = msg_id
 
 
-async def send_list_of_games(message: types.Message):
-    await message.answer("Here is the list of available games\. *More games soon\!* 🔽", parse_mode="MarkDownV2",
+async def send_list_of_games(message: types.Message, state: FSMContext):
+
+    async with state.proxy() as data:
+        msg_id = data["message"]
+    if not message.from_user.is_bot:
+        await message.delete()
+    await msg_id.edit_text("Here is the list of available games\. *More games soon\!* 🔽", parse_mode="MarkDownV2",
                          reply_markup=games_list)
 
 
