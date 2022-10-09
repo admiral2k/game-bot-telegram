@@ -29,7 +29,7 @@ async def send_list_of_games(message: types.Message, state: FSMContext):
 async def start_game(callback: types.CallbackQuery, state: FSMContext):
     await callback.answer()
     await FSM.next()
-    game_name = callback.data.split("_")[2]
+    game_name = callback.data.split("game_chosen_")[1]
     await game_manager.show_menu(game_name, callback, state)
 
 
