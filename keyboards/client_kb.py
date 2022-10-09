@@ -2,7 +2,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 games_list = InlineKeyboardMarkup(row_width=1)
 bagels = InlineKeyboardButton("Bagels 💀", callback_data="game_chosen_bagels")
-games_list.add(bagels)
+game_of_life = InlineKeyboardButton("Game of Life 🦠", callback_data="game_chosen_game_of_life")
+games_list.add(bagels, game_of_life)
 
 
 game_menu = InlineKeyboardMarkup(row_width=2)
