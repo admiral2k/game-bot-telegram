@@ -13,13 +13,7 @@ dp = Dispatcher(bot=bot, storage=storage)
 
 class FSM(StatesGroup):
     main_menu = State()
-
     bagels_game_menu = State()
     bagels_game_info = State()
     bagels_game_leaderboard = State()
     bagels_active_game = State()
-
-    game_of_life_game_menu = State()
-    game_of_life_game_info = State()
-    game_of_life_game_leaderboard = State()
-    game_of_life_active_game = State()
