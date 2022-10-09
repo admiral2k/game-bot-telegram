@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from bot_config import FSM
 from handlers import client
 from handlers.games import game_manager
-from keyboards.client_kb import game_menu, back_or_play_kb, end_game_kb
+from keyboards.client_kb import back_or_play_kb, end_game_kb
 from utils.exceptions import AccessError, ActionError
 import random as r
 
@@ -30,7 +30,7 @@ async def show_info(callback: types.CallbackQuery):
 
 async def go_back(callback: types.CallbackQuery, state: FSMContext):
     await callback.answer()
-    await callback.message.edit_text(callback.message.text ,reply_markup=None)
+    await callback.message.edit_text(callback.message.text, reply_markup=None)
     if await state.get_state() == FSM.bagels_game_info.state:
         await game_manager.show_menu("bagels", callback, state)
     elif await state.get_state() == FSM.bagels_game_menu.state:
@@ -84,7 +84,9 @@ def registrate_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(show_info, lambda callback: callback.data == "game_button_about",
                                        state=FSM.bagels_game_menu)
     dp.register_callback_query_handler(go_back,
-                                       lambda callback: callback.data == "game_button_back", state="*")
+                                       lambda callback: callback.data == "game_button_back",
+                                       state=[FSM.bagels_game_info.state, FSM.bagels_game_menu.state,
+                                              FSM.bagels_active_game.state, FSM.bagels_game_leaderboard.state])
     dp.register_callback_query_handler(show_leaderboard,
                                        lambda callback: callback.data == "game_button_leaderboard",
                                        state=FSM.bagels_game_menu)
