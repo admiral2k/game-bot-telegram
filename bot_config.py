@@ -3,7 +3,9 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import Dispatcher
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
-TOKEN = '1838250326:AAGVUGJM9o8P9KzaCcTW2EM-yZFUjpKpfJ0'
+
+with open("token.txt") as file:
+    TOKEN = file.readline()
 
 storage = MemoryStorage()
 
